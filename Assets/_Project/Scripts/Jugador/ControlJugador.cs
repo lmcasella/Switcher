@@ -80,8 +80,8 @@ public class ControlJugador : MonoBehaviour
 
         foreach (Collider2D collider in castHit)
         {
-            if (collider.TryGetComponent(out IUsable interruptor))
-                interruptor.Usar();
+            if (collider.TryGetComponent(out IUsable usable))
+                usable.Usar();
         }
     }
 }

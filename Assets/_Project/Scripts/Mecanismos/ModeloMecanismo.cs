@@ -1,0 +1,60 @@
+using System;
+using UnityEngine;
+using UnityEngine.Serialization;
+
+public class ModeloMecanismo : MonoBehaviour
+{
+    [Header("Configuración")]
+    [Tooltip("Interruptor con el que se activa")] 
+    [SerializeField] private ModeloInterruptor interruptorAUsar;
+    [SerializeField] private bool invertido;
+
+    private bool _activado;
+    public ModeloInterruptor Interruptor => interruptorAUsar;
+    
+    private void OnEnable()
+    {
+        interruptorAUsar.OnEncender += Activar;
+    }
+
+    private void OnDisable()
+    {
+        interruptorAUsar.OnEncender -= Activar;
+    }
+
+    public void Activar(object sender, ModeloInterruptor.ArgumentosInterruptor argumentos)
+    {
+        _activado = invertido ? !argumentos.encendido : argumentos.encendido;
+        if(_activado) EstadoActivo();
+        else EstadoInactivo();
+    }
+
+    public virtual void EstadoActivo()
+    {
+        throw new NotImplementedException("El estado activo funciona, pero no se implementó ningún comportamiento.");
+    }
+
+    public virtual void EstadoInactivo()
+    {
+        throw new NotImplementedException("El estado inactivo funciona, pero no se implementó ningún comportamiento.");
+    }
+
+    #if UNITY_EDITOR 
+    // ^ Esto sirve para indicar que esta pieza de código no debe ser compilada, porque lo único que queremos es mostrar guías en el editor.
+    private void OnDrawGizmosSelected()
+    {
+        // Si no hay un interruptor, no hay por qué renderizar un enlace.
+        if (!interruptorAUsar) return;
+        GizmosLineaDeConexion();
+    }
+
+    /// <summary>
+    /// Renderiza una linea de conexión en el editor, debe usarse dentro de OnDrawGizmos() o OnDrawGizmosSelected()
+    /// </summary>
+    private void GizmosLineaDeConexion()
+    {
+        Gizmos.color = interruptorAUsar.Encendido ? Color.green : Color.red;
+        Gizmos.DrawLine(interruptorAUsar.transform.position, transform.position);
+    }
+    #endif
+}

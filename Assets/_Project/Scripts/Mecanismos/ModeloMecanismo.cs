@@ -9,7 +9,8 @@ public class ModeloMecanismo : MonoBehaviour
     [SerializeField] private ModeloInterruptor interruptorAUsar;
     [SerializeField] private bool invertido;
 
-    private bool _activado;
+    public bool Activado { get; private set; }
+    public bool Invertido => invertido;
     
     public ModeloInterruptor Interruptor => interruptorAUsar;
     
@@ -25,8 +26,8 @@ public class ModeloMecanismo : MonoBehaviour
 
     public void Activar(object sender, ModeloInterruptor.ArgumentosInterruptor argumentos)
     {
-        _activado = invertido ? !argumentos.encendido : argumentos.encendido;
-        if(_activado) EstadoActivo();
+        Activado = invertido ? !argumentos.encendido : argumentos.encendido;
+        if(Activado) EstadoActivo();
         else EstadoInactivo();
     }
 

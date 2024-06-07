@@ -12,44 +12,51 @@ public class AnimarPorInterruptor : MonoBehaviour
     [SerializeField] private Sprite spriteActivo;
     [SerializeField] private Sprite spriteApagado;
 
-    [Header("Componentes")]
-    [SerializeField] private ModeloInterruptor interruptorAValidar;
+    // [Header("Componentes")]
+    private ModeloInterruptor _interruptorAValidar;
+    private ModeloMecanismo _mecanismoAValidar;
     
     private SpriteRenderer _sprite;
 
     private void OnEnable()
     {
-        interruptorAValidar.OnEncender += EstablecerSpriteAdecuado;
+        _interruptorAValidar.OnEncender += EstablecerSpriteAdecuado;
     }
 
     private void OnDisable()
     {
-        interruptorAValidar.OnEncender -= EstablecerSpriteAdecuado;
+        _interruptorAValidar.OnEncender -= EstablecerSpriteAdecuado;
     }
 
     private void OnValidate()
     {
         if (TryGetComponent(out ModeloInterruptor interruptor))
-            interruptorAValidar = interruptor;
+            _interruptorAValidar = interruptor;
 
         if (TryGetComponent(out ModeloMecanismo mecanismo))
-            interruptorAValidar = mecanismo.Interruptor;
+        {
+            _mecanismoAValidar = mecanismo;
+            _interruptorAValidar = mecanismo.Interruptor;
+        }
 
         if (TryGetComponent(out SpriteRenderer sprite))
             _sprite = sprite;
         
-        if(interruptorAValidar)
-            EstablecerSpriteAdecuado(interruptorAValidar.encendidoPorDefecto);
+        if(_interruptorAValidar)
+            EstablecerSpriteAdecuado(_interruptorAValidar.encendidoPorDefecto);
     }
 
     private void Start()
     {
-        EstablecerSpriteAdecuado(interruptorAValidar.Encendido); 
+        EstablecerSpriteAdecuado(_interruptorAValidar.Encendido); 
     }
 
     private void EstablecerSpriteAdecuado(object sender, ModeloInterruptor.ArgumentosInterruptor e)
     {
-        EstablecerSpriteAdecuado(e.encendido);
+        if(_interruptorAValidar)
+            EstablecerSpriteAdecuado(e.encendido);
+        if(_mecanismoAValidar)
+            EstablecerSpriteAdecuado(e.encendido != _mecanismoAValidar.Invertido);
     }
 
     private void EstablecerSpriteAdecuado(bool valor)

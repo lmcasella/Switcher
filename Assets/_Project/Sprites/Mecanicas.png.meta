@@ -97,7 +97,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Mecanicas_0
+      name: Mecanicas_Boton1
       rect:
         serializedVersion: 2
         x: 0
@@ -105,7 +105,7 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -118,7 +118,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Mecanicas_1
+      name: Mecanicas_Boton2
       rect:
         serializedVersion: 2
         x: 16
@@ -126,7 +126,7 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -139,7 +139,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Mecanicas_2
+      name: Mecanicas_Palanca1
       rect:
         serializedVersion: 2
         x: 32
@@ -147,7 +147,7 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -160,7 +160,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Mecanicas_3
+      name: Mecanicas_Palanca2
       rect:
         serializedVersion: 2
         x: 48
@@ -168,7 +168,7 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -181,7 +181,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Mecanicas_4
+      name: Mecanicas_Portal1
       rect:
         serializedVersion: 2
         x: 0
@@ -189,7 +189,7 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -202,7 +202,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Mecanicas_5
+      name: Mecanicas_Portal2
       rect:
         serializedVersion: 2
         x: 16
@@ -210,7 +210,7 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -223,7 +223,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Mecanicas_6
+      name: Mecanicas_Sensor1
       rect:
         serializedVersion: 2
         x: 32
@@ -231,7 +231,7 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -244,7 +244,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Mecanicas_7
+      name: Mecanicas_Sensor2
       rect:
         serializedVersion: 2
         x: 48
@@ -252,7 +252,7 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -265,7 +265,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Mecanicas_8
+      name: Mecanicas_8_PuertaDoble1
       rect:
         serializedVersion: 2
         x: 0
@@ -273,7 +273,7 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -286,7 +286,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Mecanicas_9
+      name: Mecanicas_9_PuertaDoble2
       rect:
         serializedVersion: 2
         x: 16
@@ -294,7 +294,7 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -307,7 +307,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Mecanicas_10
+      name: Mecanicas_Puerta1
       rect:
         serializedVersion: 2
         x: 32
@@ -315,7 +315,7 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -328,7 +328,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Mecanicas_11
+      name: Mecanicas_Puerta2
       rect:
         serializedVersion: 2
         x: 48
@@ -336,7 +336,7 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -359,18 +359,18 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Mecanicas_0: 1780086515
-      Mecanicas_1: -299670391
-      Mecanicas_10: 1424790306
-      Mecanicas_11: 1349448709
-      Mecanicas_2: -1945782953
-      Mecanicas_3: -634723066
-      Mecanicas_4: -1277958295
-      Mecanicas_5: -512717598
-      Mecanicas_6: -855775843
-      Mecanicas_7: -2105099888
-      Mecanicas_8: 1975287394
-      Mecanicas_9: -1736883474
+      Mecanicas_8_PuertaDoble1: 1975287394
+      Mecanicas_9_PuertaDoble2: -1736883474
+      Mecanicas_Boton1: 1780086515
+      Mecanicas_Boton2: -299670391
+      Mecanicas_Palanca1: -1945782953
+      Mecanicas_Palanca2: -634723066
+      Mecanicas_Portal1: -1277958295
+      Mecanicas_Portal2: -512717598
+      Mecanicas_Puerta1: 1424790306
+      Mecanicas_Puerta2: 1349448709
+      Mecanicas_Sensor1: -855775843
+      Mecanicas_Sensor2: -2105099888
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -10,6 +10,7 @@ public class ModeloMecanismo : MonoBehaviour
     [SerializeField] private bool invertido;
 
     private bool _activado;
+    
     public ModeloInterruptor Interruptor => interruptorAUsar;
     
     private void OnEnable()
@@ -31,18 +32,18 @@ public class ModeloMecanismo : MonoBehaviour
 
     public virtual void EstadoActivo()
     {
-        throw new NotImplementedException("El estado activo funciona, pero no se implementó ningún comportamiento.");
     }
 
     public virtual void EstadoInactivo()
     {
-        throw new NotImplementedException("El estado inactivo funciona, pero no se implementó ningún comportamiento.");
     }
 
-    #if UNITY_EDITOR 
+#if UNITY_EDITOR 
     // ^ Esto sirve para indicar que esta pieza de código no debe ser compilada, porque lo único que queremos es mostrar guías en el editor.
-    private void OnDrawGizmosSelected()
-    {
+    private void OnDrawGizmos()
+    { 
+        GridSnapping.Snap(transform);
+        
         // Si no hay un interruptor, no hay por qué renderizar un enlace.
         if (!interruptorAUsar) return;
         GizmosLineaDeConexion();

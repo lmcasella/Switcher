@@ -62,4 +62,9 @@ public class ModeloInterruptor : MonoBehaviour, IInterruptor, IUsable
     {
         Encender(false);
     }
+
+    protected virtual void OnDrawGizmos()
+    {
+        GridSnapping.Snap(transform);
+    }
 }

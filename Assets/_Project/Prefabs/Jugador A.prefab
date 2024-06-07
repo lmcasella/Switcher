@@ -230,10 +230,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3092670302106640296}
+  - component: {fileID: 6358998969672267187}
   - component: {fileID: 7346120827393437537}
+  - component: {fileID: 6958637478795175835}
   - component: {fileID: 8307316113094224026}
   - component: {fileID: 5731615445597502850}
-  - component: {fileID: 6958637478795175835}
   m_Layer: 0
   m_Name: Controlador
   m_TagString: Untagged
@@ -256,6 +257,27 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2156196151876691275}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &6358998969672267187
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8679056353594715649}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a0a8a10cbf4880a4fb30badd901ec224, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!212 &7346120827393437537
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -297,7 +319,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  m_Sprite: {fileID: 703930104, guid: 0c45e2a6d809f184facc6b70f4512f2c, type: 3}
   m_Color: {r: 0.4285333, g: 0.6264266, b: 0.8490566, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -308,6 +330,24 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &6958637478795175835
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8679056353594715649}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8377eaacef698054f93c29a3a46f9f1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  velocidadMovimiento: 86
+  teclaArriba: 119
+  teclaIzquierda: 97
+  teclaAbajo: 115
+  teclaDerecha: 100
+  teclaUsar: 101
 --- !u!58 &8307316113094224026
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -370,21 +410,3 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &6958637478795175835
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8679056353594715649}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8377eaacef698054f93c29a3a46f9f1e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  velocidadMovimiento: 86
-  teclaArriba: 119
-  teclaIzquierda: 97
-  teclaAbajo: 115
-  teclaDerecha: 100
-  teclaUsar: 101

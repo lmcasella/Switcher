@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(Rigidbody2D), typeof(Collider2D),typeof(Animator))]
 public class ControlJugador : MonoBehaviour
 {
     [Header("Configuración")] 
@@ -18,6 +18,7 @@ public class ControlJugador : MonoBehaviour
 
     private Rigidbody2D _rigidbody;
     private CircleCollider2D _collider;
+    private Animator _animator;
 
     private int Arriba => ValorDeTecla(teclaArriba);
     private int Izquierda => ValorDeTecla(teclaIzquierda);
@@ -50,6 +51,7 @@ public class ControlJugador : MonoBehaviour
     {
         _rigidbody = GetComponent<Rigidbody2D>();
         _collider = GetComponent<CircleCollider2D>();
+        _animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -69,6 +71,10 @@ public class ControlJugador : MonoBehaviour
     private void AplicarMovimiento()
     {
         _rigidbody.velocity += DireccionAMover * velocidadMovimiento * Time.deltaTime;
+        
+        // Animar en base a la dirección de movimiento
+        _animator.SetFloat("x", DireccionAMover.x);
+        _animator.SetFloat("y", DireccionAMover.y);
     }
 
     /// <summary>

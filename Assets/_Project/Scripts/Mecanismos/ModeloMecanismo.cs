@@ -43,8 +43,6 @@ public class ModeloMecanismo : MonoBehaviour
     // ^ Esto sirve para indicar que esta pieza de código no debe ser compilada, porque lo único que queremos es mostrar guías en el editor.
     private void OnDrawGizmos()
     { 
-        GridSnapping.Snap(transform);
-        
         // Si no hay un interruptor, no hay por qué renderizar un enlace.
         if (!interruptorAUsar) return;
         GizmosLineaDeConexion();

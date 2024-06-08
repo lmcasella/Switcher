@@ -60,11 +60,11 @@ public class ModeloInterruptor : MonoBehaviour, IInterruptor, IUsable
 
     private void Start()
     {
-        Encender(false);
+        Encender(encendidoPorDefecto);
     }
 
     protected virtual void OnDrawGizmos()
     {
-        GridSnapping.Snap(transform);
+        
     }
 }

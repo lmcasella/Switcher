@@ -75,6 +75,7 @@ public class ControlJugador : MonoBehaviour
         // Animar en base a la dirección de movimiento
         _animator.SetFloat("x", DireccionAMover.x);
         _animator.SetFloat("y", DireccionAMover.y);
+        _animator.SetFloat("speed", DireccionAMover.magnitude);
     }
 
     /// <summary>

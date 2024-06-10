@@ -1,6 +1,3 @@
-using System;
-using UnityEngine;
-
 namespace Componentes
 {
     public class ComponenteInterruptor : ComponenteBinario, IUsable

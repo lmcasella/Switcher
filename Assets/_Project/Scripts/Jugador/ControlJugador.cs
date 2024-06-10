@@ -73,9 +73,12 @@ public class ControlJugador : MonoBehaviour
         _rigidbody.velocity += DireccionAMover * velocidadMovimiento * Time.deltaTime;
         
         // Animar en base a la dirección de movimiento
+        _animator.SetFloat("speed", DireccionAMover.magnitude);
+        
+        // No calcular direcciones si no se mueve, para que se mantenga mirando hacia donde iba anteriormente
+        if (DireccionAMover == Vector2.zero) return; 
         _animator.SetFloat("x", DireccionAMover.x);
         _animator.SetFloat("y", DireccionAMover.y);
-        _animator.SetFloat("speed", DireccionAMover.magnitude);
     }
 
     /// <summary>

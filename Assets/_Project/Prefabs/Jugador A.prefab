@@ -342,7 +342,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8377eaacef698054f93c29a3a46f9f1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  velocidadMovimiento: 86
+  velocidadMovimiento: 75
   teclaArriba: 119
   teclaIzquierda: 97
   teclaAbajo: 115

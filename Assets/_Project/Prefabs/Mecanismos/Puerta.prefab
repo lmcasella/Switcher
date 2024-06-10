@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1424790306, guid: 29956156d16e8d14fb189be87d57174e, type: 3}
+  m_Sprite: {fileID: 1394110423, guid: fba07328266a78b479dbeea626b0a35d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -161,8 +161,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfb0533a0b8b0b4499160bcb05ae42b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spriteActivo: {fileID: 1349448709, guid: 29956156d16e8d14fb189be87d57174e, type: 3}
-  spriteApagado: {fileID: 1424790306, guid: 29956156d16e8d14fb189be87d57174e, type: 3}
+  spriteActivo: {fileID: 601848625, guid: fba07328266a78b479dbeea626b0a35d, type: 3}
+  spriteApagado: {fileID: 1394110423, guid: fba07328266a78b479dbeea626b0a35d, type: 3}
   detectarAlPresionar: 0
   detectarAlEncender: 1
   detectarAlApagar: 1

@@ -5,14 +5,13 @@ using System.Linq;
 using Componentes;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D), typeof(Collider2D),typeof(Animator))]
+[RequireComponent(typeof(Rigidbody2D), typeof(Collider2D), typeof(Animator))]
 public class ControlJugador : MonoBehaviour
 {
-    [Header("Configuración")] 
-    [SerializeField] private float velocidadMovimiento = 86;
+    [Header("Configuración")] [SerializeField]
+    private float velocidadMovimiento = 86;
 
-    [Header("Teclas")]
-    [SerializeField] private KeyCode teclaArriba = KeyCode.W;
+    [Header("Teclas")] [SerializeField] private KeyCode teclaArriba = KeyCode.W;
     [SerializeField] private KeyCode teclaIzquierda = KeyCode.A;
     [SerializeField] private KeyCode teclaAbajo = KeyCode.S;
     [SerializeField] private KeyCode teclaDerecha = KeyCode.D;
@@ -35,7 +34,7 @@ public class ControlJugador : MonoBehaviour
     /// <param name="tecla">La tecla sobre la que queremos saber si está siendo presionada.</param>
     /// <returns>1 si está siendo presionada, de lo contrario 0.</returns>
     private int ValorDeTecla(KeyCode tecla) => Input.GetKey(tecla) ? 1 : 0;
-    
+
     /// <summary>
     /// Devuelve un vector indicando la dirección a mover.
     /// El primer argumento es el eje X, las direcciones izquierda y derecha. El movimiento hacia la izquierda siempre es negativo.
@@ -51,39 +50,64 @@ public class ControlJugador : MonoBehaviour
         _animator = GetComponent<Animator>();
     }
 
-    
     private void Update()
     {
-        // Se evita que el usuario pueda moverse mientras mantenga presionada la tecla de usar.
-        if(!Input.GetKey(teclaUsar))
-            AplicarMovimiento();
+        ComportamientoDeNavegacion();
+        ComportamientoDeUsar();
+    }
 
+    /// <summary>
+    /// Comportamiento general para navegar por el mundo.
+    /// </summary>
+    private void ComportamientoDeNavegacion()
+    {
+        // No queremos que el personaje se mueva mientras esté manteniendo presionada la tecla de usar.
+        if (Input.GetKey(teclaUsar)) return;
+
+        MoverEnDireccionA(DireccionAMover);
+        AnimarControlador();
+    }
+
+    /// <summary>
+    /// Comportamiento general para hacer uso de objetos.
+    /// </summary>
+    private void ComportamientoDeUsar()
+    {
         if (Input.GetKeyDown(teclaUsar))
         {
             _ultimoObjetoUsable = ObtenerObjetoUsable();
             _ultimoObjetoUsable?.Usar();
         }
 
-        if(Input.GetKeyUp(teclaUsar))
+        if (Input.GetKeyUp(teclaUsar))
             _ultimoObjetoUsable?.DejarDeUsar();
     }
 
     /// <summary>
-    /// Aplica fuerzas al personaje para dirigirlo usando las teclas de movimiento.
+    /// Envía parámetros al animador tomando como referencia el input del usuario.
     /// </summary>
-    private void AplicarMovimiento()
+    private void AnimarControlador()
     {
-        _rigidbody.velocity += DireccionAMover * velocidadMovimiento * Time.deltaTime;
-        
-        // Animar en base a la dirección de movimiento
+        // Le proporcionamos al animador una velocidad de referencia
         _animator.SetFloat("speed", DireccionAMover.magnitude);
         
-        // No calcular direcciones si no se mueve, para que se mantenga mirando hacia donde iba anteriormente
-        if (DireccionAMover == Vector2.zero) return; 
-        _animator.SetFloat("x", DireccionAMover.x);
-        _animator.SetFloat("y", DireccionAMover.y);
+        // Cambia la dirección de los sprites únicamente si se está moviendo
+        if (DireccionAMover != Vector2.zero)
+        {
+            _animator.SetFloat("x", DireccionAMover.x);
+            _animator.SetFloat("y", DireccionAMover.y);
+        }
     }
 
+    /// <summary>
+    /// Empuja el controlador en la dirección proporcionada usando la velocidad configurada desde el inspector.
+    /// </summary>
+    /// <param name="direccion">La dirección hacia la cual moverse.</param>
+    private void MoverEnDireccionA(Vector2 direccion)
+    {
+        _rigidbody.velocity += direccion.normalized * velocidadMovimiento * Time.deltaTime;
+    }
+    
     /// <summary>
     /// Obtiene el interruptor que se encuentre dentro del área del personaje.
     /// </summary>

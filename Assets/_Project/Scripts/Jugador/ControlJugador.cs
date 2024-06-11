@@ -36,7 +36,7 @@ public class ControlJugador : MonoBehaviour
     private int ValorDeTecla(KeyCode tecla) => Input.GetKey(tecla) ? 1 : 0;
 
     /// <summary>
-    /// Devuelve un vector indicando la dirección a mover.
+    /// Devuelve un vector indicando la dirección a mover usando el input del usuario.
     /// El primer argumento es el eje X, las direcciones izquierda y derecha. El movimiento hacia la izquierda siempre es negativo.
     /// El segundo argumento es el eje Y, las direcciones arriba y abajo. El movimiento hacia abajo siempre es negativo.
     /// Se normaliza el resultado de dirección para que la velocidad no sea mayor cuando se mueva en diagonal por ejemplo.

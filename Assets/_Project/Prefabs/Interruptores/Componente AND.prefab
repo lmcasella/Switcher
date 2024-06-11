@@ -118,6 +118,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spriteActivo: {fileID: -2105099888, guid: 29956156d16e8d14fb189be87d57174e, type: 3}
   spriteApagado: {fileID: -855775843, guid: 29956156d16e8d14fb189be87d57174e, type: 3}
-  detectarAlPresionar: 0
-  detectarAlEncender: 1
-  detectarAlApagar: 1
+  detectarAlPresionar: 1
+  detectarAlEncender: 0
+  detectarAlApagar: 0
+  interruptorAValidar: {fileID: 6713653702167736788}

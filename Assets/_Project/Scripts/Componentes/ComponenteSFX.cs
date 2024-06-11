@@ -16,17 +16,20 @@ namespace Componentes
         [Tooltip("Se reproduce una vez el componente se apaga.")]
         [SerializeField] private AudioClip sfxApagado;
 
-        private ComponenteBinario _mecanismo;
+        private ComponenteBinario _componente;
         private AudioSource _audioSource;
 
         private void Awake()
         {
-            _mecanismo = GetComponent<ComponenteBinario>();
+            _componente = GetComponent<ComponenteBinario>();
             _audioSource = GetComponent<AudioSource>();
         }
 
         private void OnValidate()
         {
+            if (TryGetComponent(out ComponenteBinario componente))
+                _componente = componente;
+            
             if (TryGetComponent(out AudioSource audioSource))
             {
                 _audioSource = audioSource;
@@ -36,9 +39,9 @@ namespace Componentes
 
         private void OnEnable()
         {
-            _mecanismo.OnEncender += (sender, args) => InterruptorEncendido();
-            _mecanismo.OnApagar += (sender, args) => InterruptorApagado();
-            _mecanismo.OnPresionar += (sender, args) => InterruptorPresionado();            
+            _componente.OnEncender += (sender, args) => InterruptorEncendido();
+            _componente.OnApagar += (sender, args) => InterruptorApagado();
+            _componente.OnPresionar += (sender, args) => InterruptorPresionado();            
         }
 
         private void InterruptorEncendido()
@@ -55,8 +58,8 @@ namespace Componentes
 
         private void InterruptorPresionado()
         {
-            if (sfxPresionarEncender && _mecanismo.Encendido) _audioSource.PlayOneShot(sfxPresionarEncender);
-            if (sfxPresionarApagar && !_mecanismo.Encendido) _audioSource.PlayOneShot(sfxPresionarApagar);
+            if (sfxPresionarEncender && _componente.Encendido) _audioSource.PlayOneShot(sfxPresionarEncender);
+            if (sfxPresionarApagar && !_componente.Encendido) _audioSource.PlayOneShot(sfxPresionarApagar);
         }
     }
 }

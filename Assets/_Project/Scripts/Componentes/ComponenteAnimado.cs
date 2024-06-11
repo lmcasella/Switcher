@@ -7,10 +7,12 @@ namespace Componentes
     [RequireComponent(typeof(SpriteRenderer))]
     public class ComponenteAnimado : MonoBehaviour
     {
-        [Header("Sprites")] [SerializeField] private Sprite spriteActivo;
+        [Header("Sprites")] 
+        [SerializeField] private Sprite spriteActivo;
         [SerializeField] private Sprite spriteApagado;
 
-        [Header("Config")] [SerializeField] private bool detectarAlPresionar = true;
+        [Header("Config")] 
+        [SerializeField] private bool detectarAlPresionar = true;
         [SerializeField] private bool detectarAlEncender = true;
         [SerializeField] private bool detectarAlApagar = true;
 

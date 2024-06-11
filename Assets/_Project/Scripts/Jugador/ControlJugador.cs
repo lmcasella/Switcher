@@ -21,6 +21,7 @@ public class ControlJugador : MonoBehaviour
     private Rigidbody2D _rigidbody;
     private CircleCollider2D _collider;
     private Animator _animator;
+    private IUsable _ultimoObjetoUsable;
 
     private int Arriba => ValorDeTecla(teclaArriba);
     private int Izquierda => ValorDeTecla(teclaIzquierda);
@@ -56,11 +57,15 @@ public class ControlJugador : MonoBehaviour
         // Se evita que el usuario pueda moverse mientras mantenga presionada la tecla de usar.
         if(!Input.GetKey(teclaUsar))
             AplicarMovimiento();
-        
-        if(Input.GetKeyDown(teclaUsar))
-            ObtenerObjetoUsable().Usar();
+
+        if (Input.GetKeyDown(teclaUsar))
+        {
+            _ultimoObjetoUsable = ObtenerObjetoUsable();
+            _ultimoObjetoUsable?.Usar();
+        }
+
         if(Input.GetKeyUp(teclaUsar))
-            ObtenerObjetoUsable().DejarDeUsar();
+            _ultimoObjetoUsable?.DejarDeUsar();
     }
 
     /// <summary>

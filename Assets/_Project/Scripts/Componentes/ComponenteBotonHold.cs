@@ -1,15 +1,15 @@
 namespace Componentes
 {
-    public class ComponenteInterruptor : ComponenteBinario, IUsable
+    public class ComponenteBotonHold : ComponenteBinario, IUsable
     {
         public void Usar()
         {
-            Encender(!Encendido);
+            Encender(true);
         }
 
         public void DejarDeUsar()
         {
-            
+            Encender(false);
         }
     }
 }

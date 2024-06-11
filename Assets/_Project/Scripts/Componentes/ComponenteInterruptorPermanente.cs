@@ -10,5 +10,10 @@ namespace Componentes
             Encender(!Encendido);
             GetComponent<Collider2D>().enabled = false;
         }
+
+        public void DejarDeUsar()
+        {
+            
+        }
     }
 }

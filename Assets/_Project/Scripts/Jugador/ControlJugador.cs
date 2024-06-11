@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Componentes;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(Collider2D),typeof(Animator))]
@@ -41,12 +43,6 @@ public class ControlJugador : MonoBehaviour
     /// </summary>
     private Vector2 DireccionAMover => new Vector2(-Izquierda + Derecha, Arriba - Abajo).normalized;
 
-    // Esta función se ejecuta cada vez que se modifica un parámetro en el inspector.
-    private void OnValidate()
-    {
-        
-    }
-    
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
@@ -54,7 +50,7 @@ public class ControlJugador : MonoBehaviour
         _animator = GetComponent<Animator>();
     }
 
-    // Update is called once per frame
+    
     private void Update()
     {
         // Se evita que el usuario pueda moverse mientras mantenga presionada la tecla de usar.
@@ -62,7 +58,9 @@ public class ControlJugador : MonoBehaviour
             AplicarMovimiento();
         
         if(Input.GetKeyDown(teclaUsar))
-            Usar();
+            ObtenerObjetoUsable().Usar();
+        if(Input.GetKeyUp(teclaUsar))
+            ObtenerObjetoUsable().DejarDeUsar();
     }
 
     /// <summary>
@@ -82,16 +80,20 @@ public class ControlJugador : MonoBehaviour
     }
 
     /// <summary>
-    /// Hace uso de algún objeto con el que se pueda interactuar.
+    /// Obtiene el interruptor que se encuentre dentro del área del personaje.
     /// </summary>
-    private void Usar()
+    /// <returns>El interruptor que se encuentre dentro del área del personaje siempre y cuando ambos tengan un collider activo.</returns>
+    private IUsable ObtenerObjetoUsable()
     {
+        IUsable interruptor = null;
         Collider2D[] castHit = Physics2D.OverlapCircleAll(transform.position, _collider.radius);
-
+    
         foreach (Collider2D collider in castHit)
         {
-            if (collider.TryGetComponent(out IUsable usable))
-                usable.Usar();
+            if (collider.TryGetComponent(out IUsable objetoUsable))
+                interruptor = objetoUsable;
         }
+
+        return interruptor;
     }
 }

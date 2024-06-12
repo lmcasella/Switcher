@@ -69,10 +69,5 @@ namespace Componentes
             if(interruptorAValidar)
                 Gizmos.DrawLine(transform.position, interruptorAValidar.transform.position);
         }
-
-        public void ActualizarSprite(bool estado)
-        {
-            EstablecerSpriteAdecuado(estado);
-        }
     }
 }

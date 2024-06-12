@@ -7,26 +7,14 @@ using UnityEngine;
 using UnityEngine.Serialization;
 
 [RequireComponent(typeof(Collider2D))]
-//public class ComponentePlaca : MonoBehaviour, ComponenteBinario, IUsable
 public class ComponentePlaca : ComponenteBinario
 {
-    private ComponenteAnimado _componenteAnimado;
-
-    private void Start()
-    {
-        // Get script ComponenteAnimado
-        _componenteAnimado = GetComponent<ComponenteAnimado>();
-
-        if (_componenteAnimado == null)
-        {
-            Debug.LogError("No se encontró el script ComponenteAnimado.");
-        }
-    }
+    [SerializeField] private string tagAComparar = "Player";
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         // Verificar si el collider pertenece al jugador
-        if (other.CompareTag("Player"))
+        if (other.CompareTag(tagAComparar))
         {
             Encender(true);
         }
@@ -35,7 +23,7 @@ public class ComponentePlaca : ComponenteBinario
     private void OnTriggerExit2D(Collider2D other)
     {
         // Verificar si el collider pertenece al jugador
-        if (other.CompareTag("Player"))
+        if (other.CompareTag(tagAComparar))
         {
             Encender(false);
         }

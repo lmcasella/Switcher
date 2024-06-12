@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 8036749288004088211}
   - component: {fileID: 7970950163419245608}
   m_Layer: 0
-  m_Name: Puerta
+  m_Name: Puerta Simple
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

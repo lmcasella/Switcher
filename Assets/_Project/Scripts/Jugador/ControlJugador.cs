@@ -6,7 +6,7 @@ using Componentes;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(Collider2D), typeof(Animator))]
-public class ControlJugador : MonoBehaviour
+public class ControlJugador : MonoBehaviour, IDamageable
 {
     [Header("Configuración")] [SerializeField]
     private float velocidadMovimiento = 86;
@@ -21,11 +21,14 @@ public class ControlJugador : MonoBehaviour
     private CircleCollider2D _collider;
     private Animator _animator;
     private IUsable _ultimoObjetoUsable;
+    private float _vidas = 3;
 
     private int Arriba => ValorDeTecla(teclaArriba);
     private int Izquierda => ValorDeTecla(teclaIzquierda);
     private int Abajo => ValorDeTecla(teclaAbajo);
     private int Derecha => ValorDeTecla(teclaDerecha);
+
+    public bool IsDead => _vidas <= 0;
 
     /// <summary>
     /// Dada una tecla, devuelve 1 si está siendo presionada, de lo contrario 0.
@@ -52,6 +55,9 @@ public class ControlJugador : MonoBehaviour
 
     private void Update()
     {
+        _animator.SetBool("dead", IsDead);
+        if (IsDead) return;
+        
         ComportamientoDeNavegacion();
         ComportamientoDeUsar();
     }
@@ -124,5 +130,10 @@ public class ControlJugador : MonoBehaviour
         }
 
         return interruptor;
+    }
+
+    public void DealDamage()
+    {
+        _vidas -= 1;
     }
 }

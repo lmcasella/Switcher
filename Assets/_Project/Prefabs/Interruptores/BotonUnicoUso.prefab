@@ -54,7 +54,7 @@ PrefabInstance:
       objectReference: {fileID: 3654372532000192511}
     - target: {fileID: 8588850643609812946, guid: 2abfff3402197e54295010a5b2165e04, type: 3}
       propertyPath: m_Name
-      value: BotonUnicoUso Variant
+      value: BotonUnicoUso
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2440588683371152402, guid: 2abfff3402197e54295010a5b2165e04, type: 3}

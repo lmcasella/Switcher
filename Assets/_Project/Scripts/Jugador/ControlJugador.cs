@@ -16,12 +16,13 @@ public class ControlJugador : MonoBehaviour, IDamageable
     [SerializeField] private KeyCode teclaAbajo = KeyCode.S;
     [SerializeField] private KeyCode teclaDerecha = KeyCode.D;
     [SerializeField] private KeyCode teclaUsar = KeyCode.E;
+    [SerializeField] private AudioClip sfxDamage;
 
     private Rigidbody2D _rigidbody;
     private CircleCollider2D _collider;
     private Animator _animator;
     private IUsable _ultimoObjetoUsable;
-    public float _vidas = 3;
+    private float _vidas = 3;
 
     private int Arriba => ValorDeTecla(teclaArriba);
     private int Izquierda => ValorDeTecla(teclaIzquierda);
@@ -137,5 +138,6 @@ public class ControlJugador : MonoBehaviour, IDamageable
         _vidas -= 1;
         _animator.SetTrigger("damage");
         _rigidbody.velocity -= _rigidbody.velocity * 4;
+        AudioSource.PlayClipAtPoint(sfxDamage, transform.position, 1);
     }
 }

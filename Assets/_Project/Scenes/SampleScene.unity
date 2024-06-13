@@ -34564,6 +34564,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2419865034595508010, guid: c9b14adb0dc3510468cc4eb551542bc8, type: 3}
+      propertyPath: delayEncender
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4201046942540340433, guid: c9b14adb0dc3510468cc4eb551542bc8, type: 3}
       propertyPath: m_LocalPosition.x
       value: 18.5

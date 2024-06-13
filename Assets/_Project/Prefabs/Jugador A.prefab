@@ -348,6 +348,7 @@ MonoBehaviour:
   teclaAbajo: 115
   teclaDerecha: 100
   teclaUsar: 101
+  sfxDamage: {fileID: 8300000, guid: 7e201a2c9daac694cbf158aaa2a96771, type: 3}
 --- !u!58 &8307316113094224026
 CircleCollider2D:
   m_ObjectHideFlags: 0

@@ -21,7 +21,7 @@ public class ControlJugador : MonoBehaviour, IDamageable
     private CircleCollider2D _collider;
     private Animator _animator;
     private IUsable _ultimoObjetoUsable;
-    private float _vidas = 3;
+    public float _vidas = 3;
 
     private int Arriba => ValorDeTecla(teclaArriba);
     private int Izquierda => ValorDeTecla(teclaIzquierda);
@@ -135,5 +135,7 @@ public class ControlJugador : MonoBehaviour, IDamageable
     public void DealDamage()
     {
         _vidas -= 1;
+        _animator.SetTrigger("damage");
+        _rigidbody.velocity -= _rigidbody.velocity * 4;
     }
 }

@@ -50,11 +50,13 @@ namespace Componentes
             Encender(false);
         }
 
+        #if UNITY_EDITOR
         private void OnDrawGizmos()
         {
             if (!interruptor) return;
             Gizmos.color = interruptor.Encendido ? Color.green : Color.red;
             Gizmos.DrawLine(transform.position, interruptor.transform.position);
-        }
+        }  
+        #endif
     }
 }

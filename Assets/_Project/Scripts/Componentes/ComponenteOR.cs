@@ -28,6 +28,7 @@ namespace Componentes {
             Encender(A.Encendido || B.Encendido);
         }
 
+        #if UNITY_EDITOR
         private void OnDrawGizmos()
         {
             if (!(A && B)) return;
@@ -40,5 +41,6 @@ namespace Componentes {
             Gizmos.color = interruptor.Encendido ? Color.green : Color.red;
             Gizmos.DrawLine(interruptor.transform.position, transform.position);
         }
+        #endif
     }
 }

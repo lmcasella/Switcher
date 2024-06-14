@@ -19,13 +19,11 @@ namespace Componentes
         private ComponenteBinario _componente;
         private AudioSource _audioSource;
 
-        private void Awake()
-        {
-            _componente = GetComponent<ComponenteBinario>();
-            _audioSource = GetComponent<AudioSource>();
-        }
+        private void Awake() => ValidarComponentes();
 
-        private void OnValidate()
+        private void OnValidate() => ValidarComponentes();
+
+        private void ValidarComponentes()
         {
             if (TryGetComponent(out ComponenteBinario componente))
                 _componente = componente;

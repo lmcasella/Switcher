@@ -39,10 +39,14 @@ namespace Componentes
             gameObject.SetActive(interruptor.Encendido);
         }
 
-        private void OnValidate()
+        private void OnValidate() => ValidarComponentes();
+
+        private void Awake() => ValidarComponentes();
+
+        private void ValidarComponentes()
         {
             if (TryGetComponent(out ComponenteBinario componenteBinario))
-                interruptor = componenteBinario;
+                interruptor = componenteBinario;    
         }
     }
 }

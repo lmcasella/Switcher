@@ -51,11 +51,15 @@ namespace Componentes
             _sprite.sprite = valor ? spriteActivo : spriteApagado;
         }
 
-        private void OnValidate()
+        private void OnValidate() => ValidarComponentes();
+
+        private void Awake() => ValidarComponentes();
+
+        private void ValidarComponentes()
         {
             if (TryGetComponent(out ComponenteBinario interruptor))
                 interruptorAValidar = interruptor;
-
+            
             if (TryGetComponent(out SpriteRenderer sprite))
                 _sprite = sprite;
 
@@ -63,11 +67,13 @@ namespace Componentes
                 EstablecerSpriteAdecuado(interruptorAValidar.Encendido);
         }
 
+        #if UNITY_EDITOR
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.magenta;
             if(interruptorAValidar)
                 Gizmos.DrawLine(transform.position, interruptorAValidar.transform.position);
         }
+        #endif
     }
 }

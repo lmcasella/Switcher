@@ -6,8 +6,16 @@ namespace Componentes
     [RequireComponent(typeof(Collider2D))]
     public class ComponenteTrampa : ComponenteBinario
     {
+        [SerializeField] private ComponenteBinario interruptor;
+        
         private Collider2D _collider;
         private SpriteRenderer _spriteRenderer;
+
+        private void OnEnable()
+        {
+            interruptor.OnEncender += (sender, args) => EstadoEncendido();
+            interruptor.OnApagar += (sender, args) => EstadoApagado();
+        }
 
         private void Awake()
         {
@@ -32,10 +40,12 @@ namespace Componentes
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (other.gameObject.TryGetComponent(out IDamageable damageable))
+            {
                 damageable.DealDamage();
-            EstadoApagado();
-            Encender(true);
-            Debug.Log("Dañado!");
+                EstadoApagado();
+                Encender(interruptor.Encendido);
+                Debug.Log("Dañado!");
+            }
         }
     }
 }

@@ -5,6 +5,7 @@ using System.Linq;
 using Componentes;
 using TMPro;
 using UnityEngine;
+using Random = System.Random;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(Collider2D), typeof(Animator))]
 public class ControlJugador : MonoBehaviour, IDamageable
@@ -136,6 +137,12 @@ public class ControlJugador : MonoBehaviour, IDamageable
         return interruptor;
     }
 
+    private string PainDialog()
+    {
+        string[] textList = new string[] { "Ouch!", "Owie!", "Ah!", "Ouh!", "Aw!", "Ow!", "Ay!" };
+        return textList[UnityEngine.Random.Range(0, textList.Length - 1)];
+    }
+
     public void DealDamage()
     {
         _vidas -= 1;
@@ -145,7 +152,7 @@ public class ControlJugador : MonoBehaviour, IDamageable
 
         if (IsDead) return;
         
-        Decir("Ouch!", 0.5f);
+        Decir(PainDialog(), 0.5f);
     }
 
     public void Decir(string texto, float delay)

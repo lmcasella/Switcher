@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Componentes;
+using TMPro;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(Collider2D), typeof(Animator))]
@@ -21,6 +22,7 @@ public class ControlJugador : MonoBehaviour, IDamageable
     private Rigidbody2D _rigidbody;
     private CircleCollider2D _collider;
     private Animator _animator;
+    private TextMeshPro _textoDialogo;
     private IUsable _ultimoObjetoUsable;
     private float _vidas = 3;
 
@@ -52,6 +54,7 @@ public class ControlJugador : MonoBehaviour, IDamageable
         _rigidbody = GetComponent<Rigidbody2D>();
         _collider = GetComponent<CircleCollider2D>();
         _animator = GetComponent<Animator>();
+        _textoDialogo = GetComponentInChildren<TextMeshPro>();
     }
 
     private void Update()
@@ -138,6 +141,22 @@ public class ControlJugador : MonoBehaviour, IDamageable
         _vidas -= 1;
         _animator.SetTrigger("damage");
         _rigidbody.velocity -= _rigidbody.velocity * 4;
-        AudioSource.PlayClipAtPoint(sfxDamage, transform.position, 1);
+        AudioSource.PlayClipAtPoint(sfxDamage, transform.position);
+
+        if (IsDead) return;
+        
+        Decir("Ouch!", 0.5f);
+    }
+
+    public void Decir(string texto, float delay)
+    {
+        StartCoroutine(MostrarDialogo(texto, delay));
+    }
+
+    private IEnumerator MostrarDialogo(string texto, float delay)
+    {
+        _textoDialogo.text = texto;
+        yield return new WaitForSeconds(delay);
+        _textoDialogo.text = string.Empty;
     }
 }

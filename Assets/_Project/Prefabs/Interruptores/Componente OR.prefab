@@ -54,7 +54,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6534946308522781150, guid: e6f3101042a19614881a66ff27cfa7bc, type: 3}
       propertyPath: m_Name
-      value: Componente OR Variant
+      value: Componente OR
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6713653702167736788, guid: e6f3101042a19614881a66ff27cfa7bc, type: 3}
@@ -84,7 +84,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   encendidoPorDefecto: 0
   invertir: 0
-  delayEncender: 0.3
-  delayApagar: 0.3
+  delayEncender: 0.1
+  delayApagar: 0.1
   A: {fileID: 0}
   B: {fileID: 0}

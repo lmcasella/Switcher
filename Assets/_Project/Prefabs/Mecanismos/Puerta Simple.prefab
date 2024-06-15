@@ -148,8 +148,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   encendidoPorDefecto: 0
   invertir: 0
-  delayEncender: 0.3
-  delayApagar: 0.3
+  delayEncender: 0.1
+  delayApagar: 0.1
   interruptor: {fileID: 0}
 --- !u!114 &3884096105648285562
 MonoBehaviour:

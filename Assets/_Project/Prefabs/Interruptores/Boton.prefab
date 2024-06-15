@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 8447602450054744577}
   - component: {fileID: 7938880131702929417}
   - component: {fileID: 6041677233909816855}
+  - component: {fileID: 1289220509801446511}
   m_Layer: 0
   m_Name: Boton
   m_TagString: Untagged
@@ -138,8 +139,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   encendidoPorDefecto: 0
   invertir: 0
-  delayEncender: 0.3
-  delayApagar: 0.3
+  delayEncender: 0.1
+  delayApagar: 0.1
 --- !u!114 &8447602450054744577
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -270,3 +271,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1289220509801446511
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8588850643609812946}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b39e295b47524e5881c379adc0726116, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mensaje: '[Usar]'
+  delay: 500
+  sacarAlSalir: 1
+  destruir: 0

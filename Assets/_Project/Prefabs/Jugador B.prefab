@@ -65,6 +65,10 @@ PrefabInstance:
       value: 275
       objectReference: {fileID: 0}
     - target: {fileID: 6958637478795175835, guid: d96743be6625bf246a48079153f9b335, type: 3}
+      propertyPath: numeroJugador
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6958637478795175835, guid: d96743be6625bf246a48079153f9b335, type: 3}
       propertyPath: teclaIzquierda
       value: 276
       objectReference: {fileID: 0}

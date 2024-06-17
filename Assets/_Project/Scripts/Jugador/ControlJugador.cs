@@ -10,10 +10,20 @@ using Random = System.Random;
 [RequireComponent(typeof(Rigidbody2D), typeof(Collider2D), typeof(Animator))]
 public class ControlJugador : MonoBehaviour, IDamageable
 {
-    [Header("Configuración")] [SerializeField]
-    private float velocidadMovimiento = 86;
+    public event Action<ControlJugador> OnDeath;
+    
+    public enum NumeroJugador
+    {
+        J1, J2
+    }
 
-    [Header("Teclas")] [SerializeField] private KeyCode teclaArriba = KeyCode.W;
+    [Header("Configuración")] 
+    public NumeroJugador numeroJugador = NumeroJugador.J1;
+    [SerializeField] private float velocidadMovimiento = 86;
+    [SerializeField] private int vidaMaxima = 3;
+
+    [Header("Teclas")] 
+    [SerializeField] private KeyCode teclaArriba = KeyCode.W;
     [SerializeField] private KeyCode teclaIzquierda = KeyCode.A;
     [SerializeField] private KeyCode teclaAbajo = KeyCode.S;
     [SerializeField] private KeyCode teclaDerecha = KeyCode.D;
@@ -25,7 +35,7 @@ public class ControlJugador : MonoBehaviour, IDamageable
     private Animator _animator;
     private TextMeshPro _textoDialogo;
     private IUsable _ultimoObjetoUsable;
-    private float _vidas = 3;
+    private float _vidas;
 
     private int Arriba => ValorDeTecla(teclaArriba);
     private int Izquierda => ValorDeTecla(teclaIzquierda);
@@ -50,12 +60,15 @@ public class ControlJugador : MonoBehaviour, IDamageable
     /// </summary>
     private Vector2 DireccionAMover => new Vector2(-Izquierda + Derecha, Arriba - Abajo).normalized;
 
+    public void Revivir() => _vidas = vidaMaxima;
+    
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
         _collider = GetComponent<CircleCollider2D>();
         _animator = GetComponent<Animator>();
         _textoDialogo = GetComponentInChildren<TextMeshPro>();
+        _vidas = vidaMaxima;
     }
 
     private void Update()
@@ -150,7 +163,11 @@ public class ControlJugador : MonoBehaviour, IDamageable
         _rigidbody.velocity -= _rigidbody.velocity * 4;
         AudioSource.PlayClipAtPoint(sfxDamage, transform.position);
 
-        if (IsDead) return;
+        if (IsDead)
+        {
+            OnDeath?.Invoke(this);
+            return;
+        }
         
         Decir(PainDialog(), 0.5f);
     }

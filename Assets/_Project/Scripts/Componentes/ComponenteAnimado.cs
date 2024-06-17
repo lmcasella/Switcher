@@ -20,6 +20,7 @@ namespace Componentes
         [SerializeField] private ComponenteBinario interruptorAValidar;
 
         private SpriteRenderer _sprite;
+        private Animator _animator;
 
         private void OnEnable()
         {
@@ -49,6 +50,7 @@ namespace Componentes
         private void EstablecerSpriteAdecuado(bool valor)
         {
             _sprite.sprite = valor ? spriteActivo : spriteApagado;
+            _animator?.SetBool("encendido", valor);
         }
 
         private void OnValidate() => ValidarComponentes();
@@ -63,6 +65,9 @@ namespace Componentes
             if (TryGetComponent(out SpriteRenderer sprite))
                 _sprite = sprite;
 
+            if (TryGetComponent(out Animator animator))
+                _animator = animator;
+            
             if (interruptorAValidar)
                 EstablecerSpriteAdecuado(interruptorAValidar.Encendido);
         }

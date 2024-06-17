@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 6041677233909816855}
   - component: {fileID: 1289220509801446511}
   m_Layer: 0
-  m_Name: Boton
+  m_Name: Boton Switch
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -79,7 +79,7 @@ SpriteRenderer:
   m_SortingLayerID: 2044169693
   m_SortingLayer: -2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1061569933, guid: 393233814ef44f540be99bffa2a9d944, type: 3}
+  m_Sprite: {fileID: 634806218, guid: f8070ca095290db43b8ee43403a9fad5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -153,8 +153,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfb0533a0b8b0b4499160bcb05ae42b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spriteActivo: {fileID: 1696478307, guid: 393233814ef44f540be99bffa2a9d944, type: 3}
-  spriteApagado: {fileID: 1061569933, guid: 393233814ef44f540be99bffa2a9d944, type: 3}
+  spriteActivo: {fileID: -226628051, guid: f8070ca095290db43b8ee43403a9fad5, type: 3}
+  spriteApagado: {fileID: 634806218, guid: f8070ca095290db43b8ee43403a9fad5, type: 3}
   detectarAlPresionar: 1
   detectarAlEncender: 0
   detectarAlApagar: 0

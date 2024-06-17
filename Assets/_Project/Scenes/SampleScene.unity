@@ -2225,8 +2225,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfb0533a0b8b0b4499160bcb05ae42b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spriteActivo: {fileID: -2105099888, guid: 29956156d16e8d14fb189be87d57174e, type: 3}
-  spriteApagado: {fileID: -855775843, guid: 29956156d16e8d14fb189be87d57174e, type: 3}
+  spriteActivo: {fileID: -2039601088, guid: 36b3bbea0c99827458ce800f912e3fab, type: 3}
+  spriteApagado: {fileID: 1931751364, guid: 36b3bbea0c99827458ce800f912e3fab, type: 3}
   detectarAlPresionar: 1
   detectarAlEncender: 1
   detectarAlApagar: 1
@@ -2247,7 +2247,7 @@ MonoBehaviour:
   invertir: 0
   delayEncender: 0.3
   delayApagar: 0.3
-  jugadorARespawnear: 1
+  jugadorARespawnear: 0
   interruptor: {fileID: 1320190005}
 --- !u!212 &811613866
 SpriteRenderer:
@@ -2287,11 +2287,11 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1618184097
+  m_SortingLayer: -4
   m_SortingOrder: 0
-  m_Sprite: {fileID: -855775843, guid: 29956156d16e8d14fb189be87d57174e, type: 3}
-  m_Color: {r: 0, g: 0.5261209, b: 1, a: 1}
+  m_Sprite: {fileID: 1931751364, guid: 36b3bbea0c99827458ce800f912e3fab, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -2310,7 +2310,7 @@ Transform:
   m_GameObject: {fileID: 811613861}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 36, y: 9, z: 0.011871675}
+  m_LocalPosition: {x: 33.5, y: 12, z: 0.011871675}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

@@ -35,13 +35,13 @@ public class Inventario
             ReleaseTime = 0;
         
         if (ReleaseTime > tiempoRequeridoParaSoltar)
-            AccionSoltarItem();
+            _item?.Utilizar(this);
         
         if(Input.GetKeyDown(_usuario.teclaUsar))
             AccionTomarItem();
     }
 
-    private void AccionTomarItem()
+    public void AccionTomarItem()
     {
         Item nuevoItem = ObtenerItem();
         if(nuevoItem != _item)
@@ -51,7 +51,7 @@ public class Inventario
         OnPickup?.Invoke(_usuario);
     }
     
-    private void AccionSoltarItem()
+    public void AccionSoltarItem()
     {
         _UISliderReleaseIndicator.value = ReleaseTime;
         SoltarItem();

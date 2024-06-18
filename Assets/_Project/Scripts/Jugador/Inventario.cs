@@ -35,26 +35,31 @@ public class Inventario
             ReleaseTime = 0;
         
         if (ReleaseTime > tiempoRequeridoParaSoltar)
-            DropItem();
+            AccionSoltarItem();
         
         if(Input.GetKeyDown(_usuario.teclaUsar))
-            Pickup();
+            AccionTomarItem();
     }
 
-    private void Pickup()
+    private void AccionTomarItem()
     {
-        _item = ObtenerItem();
+        Item nuevoItem = ObtenerItem();
+        if(nuevoItem != _item)
+            SoltarItem();
+        _item = nuevoItem;
         _item?.Usar(_usuario);
         OnPickup?.Invoke(_usuario);
     }
     
-    private void DropItem()
+    private void AccionSoltarItem()
     {
         _UISliderReleaseIndicator.value = ReleaseTime;
-        _item?.Soltar();
+        SoltarItem();
         _item = null;
         OnDrop?.Invoke(_usuario);
     }
+
+    private void SoltarItem() => _item?.Soltar();
     
     private Item ObtenerItem()
     {

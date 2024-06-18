@@ -12,8 +12,6 @@ using Random = System.Random;
 public class ControlJugador : MonoBehaviour, IDamageable
 {
     public event Action<ControlJugador> OnDeath;
-    public event Action<ControlJugador> OnUse;
-    public event Action<ControlJugador> OnStopUsing;
     
     public enum NumeroJugador
     {
@@ -24,34 +22,29 @@ public class ControlJugador : MonoBehaviour, IDamageable
     public NumeroJugador numeroJugador = NumeroJugador.J1;
     [SerializeField] private float velocidadMovimiento = 86;
     [SerializeField] private int vidaMaxima = 3;
-    [SerializeField] private float tiempoRequeridoParaSoltar = 1;
 
     [Header("Teclas")] 
-    [SerializeField] private KeyCode teclaArriba = KeyCode.W;
-    [SerializeField] private KeyCode teclaIzquierda = KeyCode.A;
-    [SerializeField] private KeyCode teclaAbajo = KeyCode.S;
-    [SerializeField] private KeyCode teclaDerecha = KeyCode.D;
-    [SerializeField] private KeyCode teclaUsar = KeyCode.E;
+    public KeyCode teclaArriba = KeyCode.W;
+    public KeyCode teclaIzquierda = KeyCode.A;
+    public KeyCode teclaAbajo = KeyCode.S;
+    public KeyCode teclaDerecha = KeyCode.D;
+    public KeyCode teclaUsar = KeyCode.E;
     [SerializeField] private AudioClip sfxDamage;
+    
+    public bool IsDead => _vidas <= 0;
+    public CircleCollider2D Collider { get; private set; }
+    public Rigidbody2D Rigidbody { get; private set;}
+    public Animator Animator { get; private set;}
+    public TextMeshPro TextoDialogo { get; private set;}
 
-    private Rigidbody2D _rigidbody;
-    private CircleCollider2D _collider;
-    private Animator _animator;
-    private TextMeshPro _textoDialogo;
+    private Inventario _inventario;
     private IUsable _ultimoObjetoUsable;
-    
-    private Item _item;
-    private Slider _UISliderReleaseIndicator;
-    
     private float _vidas;
 
     private int Arriba => ValorDeTecla(teclaArriba);
     private int Izquierda => ValorDeTecla(teclaIzquierda);
     private int Abajo => ValorDeTecla(teclaAbajo);
     private int Derecha => ValorDeTecla(teclaDerecha);
-
-    public float ReleaseTime { get; private set; }
-    public bool IsDead => _vidas <= 0;
 
     /// <summary>
     /// Dada una tecla, devuelve 1 si está siendo presionada, de lo contrario 0.
@@ -73,21 +66,22 @@ public class ControlJugador : MonoBehaviour, IDamageable
     
     private void Awake()
     {
-        _rigidbody = GetComponent<Rigidbody2D>();
-        _collider = GetComponent<CircleCollider2D>();
-        _animator = GetComponent<Animator>();
-        _textoDialogo = GetComponentInChildren<TextMeshPro>();
-        _UISliderReleaseIndicator = GetComponentInChildren<Slider>();
+        Rigidbody = GetComponent<Rigidbody2D>();
+        Collider = GetComponent<CircleCollider2D>();
+        Animator = GetComponent<Animator>();
+        TextoDialogo = GetComponentInChildren<TextMeshPro>();
+        _inventario = new Inventario(this);
         _vidas = vidaMaxima;
     }
 
     private void Update()
     {
-        _animator.SetBool("dead", IsDead);
+        Animator.SetBool("dead", IsDead);
         if (IsDead) return;
         
         ComportamientoDeNavegacion();
         ComportamientoDeUsar();
+        _inventario.HandleInventory();
     }
 
     /// <summary>
@@ -107,47 +101,24 @@ public class ControlJugador : MonoBehaviour, IDamageable
     /// </summary>
     private void ComportamientoDeUsar()
     {
-        #region ITEM HANDLING
-        bool holdingUseKey = Input.GetKey(teclaUsar);
-        _UISliderReleaseIndicator.gameObject.SetActive(_item && holdingUseKey);
-        if (holdingUseKey)
-        {
-            _UISliderReleaseIndicator.value = ReleaseTime;
-            ReleaseTime += Time.deltaTime;
-        }
-        else if (ReleaseTime != 0)
-            ReleaseTime = 0;
-        #endregion
-
         if (Input.GetKeyDown(teclaUsar))
             UsarObjeto();
 
         if (Input.GetKeyUp(teclaUsar))
             DejarDeUsar();
-
-        if (ReleaseTime > tiempoRequeridoParaSoltar)
-            SoltarItem();
     }
 
     private void UsarObjeto()
     {
         _ultimoObjetoUsable = ObtenerObjetoUsable();
-        _item = ObtenerItem();
         _ultimoObjetoUsable?.Usar(this);
     }
 
     private void DejarDeUsar()
     {
-        _UISliderReleaseIndicator.value = ReleaseTime;
         _ultimoObjetoUsable?.DejarDeUsar(this);
     }
-
-    private void SoltarItem()
-    {
-        _UISliderReleaseIndicator.value = ReleaseTime;
-        _item?.Soltar();
-        _item = null;
-    }
+    
 
     /// <summary>
     /// Envía parámetros al animador tomando como referencia el input del usuario.
@@ -155,13 +126,13 @@ public class ControlJugador : MonoBehaviour, IDamageable
     private void AnimarControlador()
     {
         // Le proporcionamos al animador una velocidad de referencia
-        _animator.SetFloat("speed", DireccionAMover.magnitude);
+        Animator.SetFloat("speed", DireccionAMover.magnitude);
         
         // Cambia la dirección de los sprites únicamente si se está moviendo
         if (DireccionAMover != Vector2.zero)
         {
-            _animator.SetFloat("x", DireccionAMover.x);
-            _animator.SetFloat("y", DireccionAMover.y);
+            Animator.SetFloat("x", DireccionAMover.x);
+            Animator.SetFloat("y", DireccionAMover.y);
         }
     }
 
@@ -171,27 +142,13 @@ public class ControlJugador : MonoBehaviour, IDamageable
     /// <param name="direccion">La dirección hacia la cual moverse.</param>
     private void MoverEnDireccionA(Vector2 direccion)
     {
-        _rigidbody.velocity += direccion.normalized * velocidadMovimiento * Time.deltaTime;
-    }
-    
-    private Item ObtenerItem()
-    {
-        Item item = null;
-        Collider2D[] castHit = Physics2D.OverlapCircleAll(transform.position, _collider.radius);
-    
-        foreach (Collider2D collider in castHit)
-        {
-            if (collider.TryGetComponent(out Item objetoUsable))
-                item = objetoUsable;
-        }
-
-        return item;
+        Rigidbody.velocity += direccion.normalized * velocidadMovimiento * Time.deltaTime;
     }
     
     private IUsable ObtenerObjetoUsable()
     {
         IUsable item = null;
-        Collider2D[] castHit = Physics2D.OverlapCircleAll(transform.position, _collider.radius);
+        Collider2D[] castHit = Physics2D.OverlapCircleAll(transform.position, Collider.radius);
     
         foreach (Collider2D collider in castHit)
         {
@@ -211,8 +168,8 @@ public class ControlJugador : MonoBehaviour, IDamageable
     public void DealDamage()
     {
         _vidas -= 1;
-        _animator.SetTrigger("damage");
-        _rigidbody.velocity -= _rigidbody.velocity * 4;
+        Animator.SetTrigger("damage");
+        Rigidbody.velocity -= Rigidbody.velocity * 4;
         AudioSource.PlayClipAtPoint(sfxDamage, transform.position);
 
         if (IsDead)
@@ -231,8 +188,8 @@ public class ControlJugador : MonoBehaviour, IDamageable
 
     private IEnumerator MostrarDialogo(string texto, float delay)
     {
-        _textoDialogo.text = texto;
+        TextoDialogo.text = texto;
         yield return new WaitForSeconds(delay);
-        _textoDialogo.text = string.Empty;
+        TextoDialogo.text = string.Empty;
     }
 }

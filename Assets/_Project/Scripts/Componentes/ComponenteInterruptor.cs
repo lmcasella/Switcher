@@ -2,12 +2,12 @@ namespace Componentes
 {
     public class ComponenteInterruptor : ComponenteBinario, IUsable
     {
-        public void Usar()
+        public void Usar(ControlJugador usuario)
         {
             Encender(!Encendido);
         }
 
-        public void DejarDeUsar()
+        public void DejarDeUsar(ControlJugador usuario)
         {
             
         }

@@ -5,12 +5,15 @@ using System.Linq;
 using Componentes;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using Random = System.Random;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(Collider2D), typeof(Animator))]
 public class ControlJugador : MonoBehaviour, IDamageable
 {
     public event Action<ControlJugador> OnDeath;
+    public event Action<ControlJugador> OnUse;
+    public event Action<ControlJugador> OnStopUsing;
     
     public enum NumeroJugador
     {
@@ -21,6 +24,7 @@ public class ControlJugador : MonoBehaviour, IDamageable
     public NumeroJugador numeroJugador = NumeroJugador.J1;
     [SerializeField] private float velocidadMovimiento = 86;
     [SerializeField] private int vidaMaxima = 3;
+    [SerializeField] private float tiempoRequeridoParaSoltar = 1;
 
     [Header("Teclas")] 
     [SerializeField] private KeyCode teclaArriba = KeyCode.W;
@@ -35,6 +39,10 @@ public class ControlJugador : MonoBehaviour, IDamageable
     private Animator _animator;
     private TextMeshPro _textoDialogo;
     private IUsable _ultimoObjetoUsable;
+    
+    private Item _item;
+    private Slider _UISliderReleaseIndicator;
+    
     private float _vidas;
 
     private int Arriba => ValorDeTecla(teclaArriba);
@@ -42,6 +50,7 @@ public class ControlJugador : MonoBehaviour, IDamageable
     private int Abajo => ValorDeTecla(teclaAbajo);
     private int Derecha => ValorDeTecla(teclaDerecha);
 
+    public float ReleaseTime { get; private set; }
     public bool IsDead => _vidas <= 0;
 
     /// <summary>
@@ -68,6 +77,7 @@ public class ControlJugador : MonoBehaviour, IDamageable
         _collider = GetComponent<CircleCollider2D>();
         _animator = GetComponent<Animator>();
         _textoDialogo = GetComponentInChildren<TextMeshPro>();
+        _UISliderReleaseIndicator = GetComponentInChildren<Slider>();
         _vidas = vidaMaxima;
     }
 
@@ -97,14 +107,46 @@ public class ControlJugador : MonoBehaviour, IDamageable
     /// </summary>
     private void ComportamientoDeUsar()
     {
-        if (Input.GetKeyDown(teclaUsar))
+        #region ITEM HANDLING
+        bool holdingUseKey = Input.GetKey(teclaUsar);
+        _UISliderReleaseIndicator.gameObject.SetActive(_item && holdingUseKey);
+        if (holdingUseKey)
         {
-            _ultimoObjetoUsable = ObtenerObjetoUsable();
-            _ultimoObjetoUsable?.Usar();
+            _UISliderReleaseIndicator.value = ReleaseTime;
+            ReleaseTime += Time.deltaTime;
         }
+        else if (ReleaseTime != 0)
+            ReleaseTime = 0;
+        #endregion
+
+        if (Input.GetKeyDown(teclaUsar))
+            UsarObjeto();
 
         if (Input.GetKeyUp(teclaUsar))
-            _ultimoObjetoUsable?.DejarDeUsar();
+            DejarDeUsar();
+
+        if (ReleaseTime > tiempoRequeridoParaSoltar)
+            SoltarItem();
+    }
+
+    private void UsarObjeto()
+    {
+        _ultimoObjetoUsable = ObtenerObjetoUsable();
+        _item = ObtenerItem();
+        _ultimoObjetoUsable?.Usar(this);
+    }
+
+    private void DejarDeUsar()
+    {
+        _UISliderReleaseIndicator.value = ReleaseTime;
+        _ultimoObjetoUsable?.DejarDeUsar(this);
+    }
+
+    private void SoltarItem()
+    {
+        _UISliderReleaseIndicator.value = ReleaseTime;
+        _item?.Soltar();
+        _item = null;
     }
 
     /// <summary>
@@ -132,22 +174,32 @@ public class ControlJugador : MonoBehaviour, IDamageable
         _rigidbody.velocity += direccion.normalized * velocidadMovimiento * Time.deltaTime;
     }
     
-    /// <summary>
-    /// Obtiene el interruptor que se encuentre dentro del área del personaje.
-    /// </summary>
-    /// <returns>El interruptor que se encuentre dentro del área del personaje siempre y cuando ambos tengan un collider activo.</returns>
+    private Item ObtenerItem()
+    {
+        Item item = null;
+        Collider2D[] castHit = Physics2D.OverlapCircleAll(transform.position, _collider.radius);
+    
+        foreach (Collider2D collider in castHit)
+        {
+            if (collider.TryGetComponent(out Item objetoUsable))
+                item = objetoUsable;
+        }
+
+        return item;
+    }
+    
     private IUsable ObtenerObjetoUsable()
     {
-        IUsable interruptor = null;
+        IUsable item = null;
         Collider2D[] castHit = Physics2D.OverlapCircleAll(transform.position, _collider.radius);
     
         foreach (Collider2D collider in castHit)
         {
             if (collider.TryGetComponent(out IUsable objetoUsable))
-                interruptor = objetoUsable;
+                item = objetoUsable;
         }
 
-        return interruptor;
+        return item;
     }
 
     private string PainDialog()

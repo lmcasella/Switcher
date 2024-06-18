@@ -1,16 +1,30 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Item : MonoBehaviour, IUsable
 {
-    public void Usar()
+    private ControlJugador _jugador;
+    
+    public void Usar(ControlJugador usuario)
     {
-        Debug.Log("Podría ser parte de tu inventario si quisiera. :)");
+        _jugador = usuario;
     }
 
-    public void DejarDeUsar()
+    public void DejarDeUsar(ControlJugador usuario)
     {
-        throw new System.NotImplementedException();
+        
+    }
+
+    public void Soltar()
+    {
+        _jugador = null;
+    }
+
+    private void Update()
+    {
+        if (_jugador)
+            transform.position = _jugador.transform.position;
     }
 }

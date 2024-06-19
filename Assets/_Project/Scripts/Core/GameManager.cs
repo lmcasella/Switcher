@@ -48,7 +48,7 @@ public class GameManager : MonoBehaviour
     }
     
     /// <summary>
-    /// Carga la escena de superación de nivel, en la cual hay una opción para volver al menú o reintentar.
+    /// Carga la escena de derrota, en la cual hay una opción para volver al menú o reintentar.
     /// </summary>
     public static void Perder()
     {

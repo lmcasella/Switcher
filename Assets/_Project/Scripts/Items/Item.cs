@@ -4,8 +4,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class Item : MonoBehaviour, IUsable
+public class Item : MonoBehaviour
 {
+    [Header("Sonido")]
+    [SerializeField] private AudioClip sfxPickup;
+    [SerializeField] private AudioClip sfxDrop;
+    
     protected ControlJugador _jugador;
     protected Vector2 _lastPosition;
 
@@ -14,6 +18,7 @@ public class Item : MonoBehaviour, IUsable
     public void Usar(ControlJugador usuario)
     {
         _jugador = usuario;
+        AudioSource.PlayClipAtPoint(sfxPickup, transform.position);
     }
 
     public void DejarDeUsar(ControlJugador usuario)
@@ -23,11 +28,10 @@ public class Item : MonoBehaviour, IUsable
 
     public void Soltar()
     {
-        transform.DOJump(_jugador.transform.position, 1, 1, 0.5f).OnComplete(() =>
-        {
-            _lastPosition = transform.position;
-            _jugador = null;
-        });
+        _lastPosition = _jugador.transform.position;
+        _jugador = null;
+        AudioSource.PlayClipAtPoint(sfxDrop, transform.position);
+        transform.DOJump(_lastPosition, 1, 1, 0.5f);
     }
 
     public void Deshabilitar()

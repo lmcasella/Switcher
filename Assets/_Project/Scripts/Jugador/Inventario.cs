@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
+[System.Serializable]
 [RequireComponent(typeof(ControlJugador))]
 public class Inventario
 {
@@ -44,8 +45,10 @@ public class Inventario
     public void AccionTomarItem()
     {
         Item nuevoItem = ObtenerItem();
-        if(nuevoItem != _item)
-            SoltarItem();
+        // No hacer nada si el item es el mismo que ya tenemos o intenta reemplazarlo por la misma nada.
+        if (nuevoItem == _item || !nuevoItem) return;
+        
+        SoltarItem();
         _item = nuevoItem;
         _item?.Usar(_usuario);
         OnPickup?.Invoke(_usuario);
@@ -68,7 +71,10 @@ public class Inventario
         foreach (Collider2D collider in castHit)
         {
             if (collider.TryGetComponent(out Item objetoUsable))
+            {
+                if (objetoUsable == _item) continue;
                 item = objetoUsable;
+            }
         }
 
         return item;

@@ -73,6 +73,9 @@ public class GameManager : MonoBehaviour
         CargarNivel(Instance._nivelActual + 1);
     }
 
+    /// <summary>
+    /// Carga el último nivel que se jugó, como empieza en 0, la primera vez que se abra el juego siempre va a cagar el primer nivel
+    /// </summary>
     public static void IniciarJuego()
     {
         if (IsJuegoCompleto)

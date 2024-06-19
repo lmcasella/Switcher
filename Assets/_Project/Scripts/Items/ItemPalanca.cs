@@ -5,6 +5,7 @@ using UnityEngine;
 public class ItemPalanca : Item
 {
     [SerializeField] private ComponenteBinario componenteAActivar;
+    [SerializeField] private string mensajeAlUsar = "¡Funcionó!", mensajeAlFallar = "Estoy muy lejos...";
 
     private float DistanciaHastaComponente =>
         Vector2.Distance(_jugador.transform.position, componenteAActivar.transform.position);
@@ -15,9 +16,12 @@ public class ItemPalanca : Item
         {
             componenteAActivar.Habilitar(true);
             componenteAActivar.Encender(true);
+            inventario.usuario.Decir(mensajeAlUsar, 2);
             inventario.AccionSoltarItem();
             Deshabilitar();
         }
+        else
+            inventario.usuario.Decir(mensajeAlFallar, 3);
     }
 
     private void OnDrawGizmosSelected()

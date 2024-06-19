@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 [System.Serializable]
@@ -11,17 +12,17 @@ public class Inventario
 
     public float tiempoRequeridoParaSoltar = 1;
     
-    private ControlJugador _usuario;
+    public ControlJugador usuario;
     private Item _item;
     private Slider _UISliderReleaseIndicator;
     
     public float ReleaseTime { get; private set; }
-    private bool IsHoldingUseKey => Input.GetKey(_usuario.teclaUsar);
+    private bool IsHoldingUseKey => Input.GetKey(usuario.teclaUsar);
 
     public Inventario(ControlJugador usuario)
     {
-        _usuario = usuario;
-        _UISliderReleaseIndicator = _usuario.GetComponentInChildren<Slider>();
+        this.usuario = usuario;
+        _UISliderReleaseIndicator = this.usuario.GetComponentInChildren<Slider>();
     }
     
     public void HandleInventory()
@@ -38,7 +39,7 @@ public class Inventario
         if (ReleaseTime > tiempoRequeridoParaSoltar)
             _item?.Utilizar(this);
         
-        if(Input.GetKeyDown(_usuario.teclaUsar))
+        if(Input.GetKeyDown(usuario.teclaUsar))
             AccionTomarItem();
     }
 
@@ -50,8 +51,8 @@ public class Inventario
         
         SoltarItem();
         _item = nuevoItem;
-        _item?.Usar(_usuario);
-        OnPickup?.Invoke(_usuario);
+        _item?.Usar(usuario);
+        OnPickup?.Invoke(usuario);
     }
     
     public void AccionSoltarItem()
@@ -59,7 +60,7 @@ public class Inventario
         _UISliderReleaseIndicator.value = ReleaseTime;
         SoltarItem();
         _item = null;
-        OnDrop?.Invoke(_usuario);
+        OnDrop?.Invoke(usuario);
     }
 
     private void SoltarItem() => _item?.Soltar();
@@ -67,7 +68,7 @@ public class Inventario
     private Item ObtenerItem()
     {
         Item item = null;
-        Collider2D[] castHit = Physics2D.OverlapCircleAll(_usuario.transform.position, _usuario.Collider.radius);
+        Collider2D[] castHit = Physics2D.OverlapCircleAll(usuario.transform.position, usuario.Collider.radius);
         foreach (Collider2D collider in castHit)
         {
             if (collider.TryGetComponent(out Item objetoUsable))

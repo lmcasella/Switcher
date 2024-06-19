@@ -174,6 +174,8 @@ public class ControlJugador : MonoBehaviour, IDamageable
 
         if (IsDead)
         {
+            if(!GameManager.HayRespawnersActivos()) 
+                GameManager.Perder();
             OnDeath?.Invoke(this);
             return;
         }

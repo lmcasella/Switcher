@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Componentes;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
@@ -23,6 +25,12 @@ public class GameManager : MonoBehaviour
     private int _nivelActual;
 
     public static bool IsJuegoCompleto => Instance.nivelesSuperados >= Instance.niveles.Length;
+
+    public static bool HayRespawnersActivos()
+    {
+        ComponenteRespawner[] respawners = FindObjectsByType<ComponenteRespawner>(FindObjectsSortMode.None);
+        return respawners.Any(r => r.Encendido);
+    }
 
     /// <summary>
     /// Carga la escena de victoria del juego por haber completado todos los niveles.

@@ -4,8 +4,9 @@ using UnityEngine;
 public class ItemLlaveInglesa : Item
 {
     [SerializeField] private ComponenteBinario componenteAActivar;
-    [SerializeField] private string mensajeAlUsar = "¡Funcionó!", mensajeAlFallar = "Debo reparar algo...";
-
+    [SerializeField] private string mensajeAlUsar = "¡Funcionó!";
+    [SerializeField] private string mensajeAlFallar = "Debo reparar algo...";
+    [SerializeField] private string mensajeComponenteUsado = "Ya reparé esto.";
     private float DistanciaHastaComponente =>
         Vector2.Distance(_jugador.transform.position, componenteAActivar.transform.position);
     
@@ -13,6 +14,12 @@ public class ItemLlaveInglesa : Item
     {
         if (DistanciaHastaComponente < 1.25f)
         {
+            if (componenteAActivar.Habilitado)
+            {
+                inventario.usuario.Decir(mensajeComponenteUsado, 3);
+                return;
+            }
+            
             componenteAActivar.Habilitar(true);
             inventario.usuario.Decir(mensajeAlUsar, 2);
             inventario.AccionSoltarItem();

@@ -138,3 +138,4 @@ MonoBehaviour:
   componenteAActivar: {fileID: 0}
   mensajeAlUsar: "\xA1Funcion\xF3!"
   mensajeAlFallar: Debo reparar algo...
+  mensajeComponenteUsado: "Ya repar\xE9 esto."

@@ -1,11 +1,14 @@
 using System;
 using Componentes;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class ItemPalanca : Item
 {
     [SerializeField] private ComponenteBinario componenteAActivar;
-    [SerializeField] private string mensajeAlUsar = "¡Funcionó!", mensajeAlFallar = "Estoy muy lejos...";
+    [SerializeField] private string mensajeAlUsar = "¡Funcionó!";
+    [SerializeField] private string mensajeAlFallar = "Estoy muy lejos...";
+    [SerializeField] private string mensajeComponenteUsado = "Ya abrí esta puerta."; 
 
     private float DistanciaHastaComponente =>
         Vector2.Distance(_jugador.transform.position, componenteAActivar.transform.position);
@@ -14,6 +17,12 @@ public class ItemPalanca : Item
     {
         if (DistanciaHastaComponente < 1.25f)
         {
+            if (componenteAActivar.Encendido)
+            {
+                inventario.usuario.Decir(mensajeComponenteUsado, 3);
+                return;
+            }
+            
             componenteAActivar.Habilitar(true);
             componenteAActivar.Encender(true);
             inventario.usuario.Decir(mensajeAlUsar, 2);

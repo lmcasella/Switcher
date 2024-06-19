@@ -14,20 +14,22 @@ public class GameManager : MonoBehaviour
     public int nivelesSuperados = 0;
 
     [Header("Escenas")] 
-    public Scene escenaMenuPrincipal;
-    public Scene escenaDeDerrota;
-    public Scene escenaDeVictoria;
-    public Scene escenaSuperacionDeNivel;
-    public Scene[] niveles;
+    [Scene] public string escenaMenuPrincipal;
+    [Scene] public string escenaDeDerrota;
+    [Scene] public string escenaDeVictoria;
+    [Scene] public string escenaSuperacionDeNivel;
+    [Scene] public string[] niveles;
 
     private int _nivelActual;
+
+    public static bool IsJuegoCompleto => Instance.nivelesSuperados >= Instance.niveles.Length;
 
     /// <summary>
     /// Carga la escena de victoria del juego por haber completado todos los niveles.
     /// </summary>
     public static void GanarJuego()
     {
-        SceneManager.LoadScene(Instance.escenaDeVictoria.name);
+        SceneManager.LoadScene(Instance.escenaDeVictoria);
     }
     
     /// <summary>
@@ -35,8 +37,14 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public static void SuperarNivel()
     {
-        SceneManager.LoadScene(Instance.escenaSuperacionDeNivel.name);
-        Instance.nivelesSuperados = Instance._nivelActual;
+        Instance.nivelesSuperados = Instance._nivelActual + 1;
+        if (IsJuegoCompleto)
+        {
+            GanarJuego();
+            return;
+        }
+        
+        SceneManager.LoadScene(Instance.escenaSuperacionDeNivel);
     }
     
     /// <summary>
@@ -44,7 +52,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public static void Perder()
     {
-        SceneManager.LoadScene(Instance.escenaDeDerrota.name);
+        SceneManager.LoadScene(Instance.escenaDeDerrota);
     }
     
     /// <summary>
@@ -54,7 +62,7 @@ public class GameManager : MonoBehaviour
     public static void CargarNivel(int nivel)
     {
         Instance._nivelActual = nivel;
-        SceneManager.LoadScene(Instance.niveles[nivel].name);
+        SceneManager.LoadScene(Instance.niveles[nivel]);
     }
 
     /// <summary>
@@ -62,12 +70,17 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public static void CargarSiguienteNivel()
     {
-        if (Instance.niveles.Length >= Instance._nivelActual)
+        CargarNivel(Instance._nivelActual + 1);
+    }
+
+    public static void IniciarJuego()
+    {
+        if (IsJuegoCompleto)
         {
-            GanarJuego();
+            SuperarNivel();
             return;
         }
-        CargarNivel(Instance._nivelActual + 1);
+        CargarNivel(Instance.nivelesSuperados);
     }
     
     /// <summary>
@@ -75,7 +88,17 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public static void IrAlMenuPrincipal()
     {
-        SceneManager.LoadScene(Instance.escenaMenuPrincipal.name);
+        SceneManager.LoadScene(Instance.escenaMenuPrincipal);
+    }
+    
+    public static void CerrarJuego()
+    {
+        Application.Quit();
+    }
+
+    public static void ReiniciarEscena()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     private void Awake()

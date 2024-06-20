@@ -6,16 +6,17 @@ using DG.Tweening;
 
 public class Item : MonoBehaviour
 {
-    [Header("Sonido")]
-    [SerializeField] private AudioClip sfxPickup;
+    [Header("Sonido")] [SerializeField] private AudioClip sfxPickup;
     [SerializeField] private AudioClip sfxDrop;
-    
+
     protected ControlJugador _jugador;
     protected Vector2 _lastPosition;
 
     private bool _habilitado = true;
-    
-    public void Usar(ControlJugador usuario)
+
+    public bool EstaSiendoUsado() => _jugador;
+
+public void Usar(ControlJugador usuario)
     {
         _jugador = usuario;
         AudioSource.PlayClipAtPoint(sfxPickup, transform.position);
@@ -64,7 +65,7 @@ public class Item : MonoBehaviour
 
     private void Update()
     {
-        if (_jugador)
+        if (EstaSiendoUsado())
             transform.position = Vector2.Lerp(transform.position, (Vector2)_jugador.transform.position + new Vector2(0.5f, 0.5f), Time.deltaTime*10);
         else
             HoveringEffect();

@@ -35,10 +35,13 @@ public class Inventario
         }
         else if (ReleaseTime != 0) // Once it's released, reset the time.
             ReleaseTime = 0;
-        
+
         if (ReleaseTime > tiempoRequeridoParaSoltar)
+        {
             _item?.Utilizar(this);
-        
+            ReleaseTime = 0;
+        }
+
         if(Input.GetKeyDown(usuario.teclaUsar))
             AccionTomarItem();
     }

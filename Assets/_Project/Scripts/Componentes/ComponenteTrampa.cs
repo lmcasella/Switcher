@@ -7,6 +7,8 @@ namespace Componentes
     public class ComponenteTrampa : ComponenteBinario
     {
         [SerializeField] private ComponenteBinario interruptor;
+        [SerializeField] private Color colorEncendido = Color.red;
+        [SerializeField] private Color colorApagado = Color.gray;
         
         private Collider2D _collider;
         private SpriteRenderer _spriteRenderer;
@@ -27,14 +29,14 @@ namespace Componentes
         {
             base.EstadoEncendido();
             _collider.enabled = true;
-            _spriteRenderer.color = Color.red;
+            _spriteRenderer.color = colorEncendido;
         }
 
         protected override void EstadoApagado()
         {
             base.EstadoApagado();
             _collider.enabled = false;
-            _spriteRenderer.color = Color.gray;
+            _spriteRenderer.color = colorApagado;
         }
 
         private void OnTriggerEnter2D(Collider2D other)
@@ -43,8 +45,8 @@ namespace Componentes
             {
                 damageable.DealDamage();
                 EstadoApagado();
-                Encender(interruptor.Encendido);
-                Debug.Log("Dañado!");
+                if(interruptor) Encender(interruptor.Encendido);
+                else Encender(encendidoPorDefecto);
             }
         }
     }

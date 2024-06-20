@@ -8,7 +8,8 @@ namespace Componentes
     {
         [Header("Configuración")]
         //[SerializeField] private Transform teleportEntrada;
-        [SerializeField] private Transform teleportSalida;
+        //[SerializeField] private Transform teleportSalida;
+        [SerializeField] private ComponenteTeleport teleporterAsociado;
         [SerializeField] private float teleportDelay = 1f;
 
         private bool canTeleport = true;
@@ -29,10 +30,10 @@ namespace Componentes
 
         private void TeleportPlayer(Transform player)
         {
-            if (teleportSalida != null)
+            if (teleporterAsociado != null)
             {
-                player.position = teleportSalida.position;
-                DisableTeleportationTemporarily();
+                player.position = teleporterAsociado.transform.position;
+                teleporterAsociado.DisableTeleportationTemporarily();
             }
         }
 
@@ -50,15 +51,14 @@ namespace Componentes
         private void OnDrawGizmos()
         {
 
-            if (teleportSalida != null)
+            if (teleporterAsociado != null)
             {
-                // Dibujar línea de conexión
                 Gizmos.color = Color.cyan;
-                Gizmos.DrawLine(transform.position, teleportSalida.position);
+                Gizmos.DrawLine(transform.position, teleporterAsociado.transform.position);
 
                 // Dibujar punto de salida
                 Gizmos.color = Color.green;
-                Gizmos.DrawWireSphere(teleportSalida.position, 0.2f);
+                Gizmos.DrawWireSphere(teleporterAsociado.transform.position, 0.2f);
             }
         }
     }

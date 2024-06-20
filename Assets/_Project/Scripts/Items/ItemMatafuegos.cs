@@ -25,15 +25,17 @@ namespace _Project.Scripts.Items
         
         public override void Utilizar(Inventario inventario)
         {
-            if (DistanciaHastaComponente < 1.5f)
+            if (DistanciaHastaComponente < 2f)
             {
                 Destroy(TrampaMasCercana().gameObject);
                 usos--;
                 inventario.usuario.Decir(string.Format(mensajeAlUsar, usos), 2);
                 if (usos > 0) return; 
-                inventario.AccionSoltarItem();
+                
                 inventario.usuario.Decir("Ya no queda más...", 2);
+                inventario.AccionSoltarItem();
                 Deshabilitar();
+                return;
             }
             inventario.usuario.Decir(mensajeAlFallar, 3);
         }

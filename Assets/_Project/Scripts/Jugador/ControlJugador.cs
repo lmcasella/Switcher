@@ -39,6 +39,7 @@ public class ControlJugador : MonoBehaviour, IDamageable
 
     private Inventario _inventario;
     private IUsable _ultimoObjetoUsable;
+    private Coroutine _corrutinaDialogo;
     private float _vidas;
 
     private int Arriba => ValorDeTecla(teclaArriba);
@@ -183,9 +184,15 @@ public class ControlJugador : MonoBehaviour, IDamageable
         Decir(PainDialog(), 0.5f);
     }
 
+    /// <summary>
+    /// Envía un mensaje desde la cabeza del personaje, interrumpiendo cualquier anterior mensaje.
+    /// </summary>
+    /// <param name="texto"></param>
+    /// <param name="delay"></param>
     public void Decir(string texto, float delay)
     {
-        StartCoroutine(MostrarDialogo(texto, delay));
+        if (_corrutinaDialogo != null) StopCoroutine(_corrutinaDialogo);
+        _corrutinaDialogo = StartCoroutine(MostrarDialogo(texto, delay));
     }
 
     private IEnumerator MostrarDialogo(string texto, float delay)

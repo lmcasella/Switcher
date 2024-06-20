@@ -8,7 +8,7 @@ namespace _Project.Scripts.Items
     public class ItemMatafuegos : Item
     {
         
-        [SerializeField] private string mensajeAlUsar = "¡Me quedan {0} usos!";
+        [SerializeField] private string mensajeAlUsar = "¡Quedan {0} usos!";
         [SerializeField] private string mensajeAlFallar = "Tengo que apagar el fuego...";
         [SerializeField] private int usos = 4;
 

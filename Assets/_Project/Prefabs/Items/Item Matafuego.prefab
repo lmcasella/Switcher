@@ -135,5 +135,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sfxPickup: {fileID: 8300000, guid: df3d91a71091dfb4182b0d4e29106562, type: 3}
   sfxDrop: {fileID: 8300000, guid: 1959c766febdb574aad906e127c04324, type: 3}
-  mensajeAlUsar: "\xA1Me quedan {0} usos!"
+  mensajeAlUsar: "\xA1Quedan {0} usos!"
   mensajeAlFallar: Tengo que apagar el fuego...
+  usos: 4

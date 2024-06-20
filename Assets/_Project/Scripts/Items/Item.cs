@@ -9,16 +9,18 @@ public class Item : MonoBehaviour
     [Header("Sonido")] [SerializeField] private AudioClip sfxPickup;
     [SerializeField] private AudioClip sfxDrop;
 
-    protected ControlJugador _jugador;
+    public ControlJugador Jugador { get; private set; }
     protected Vector2 _lastPosition;
 
     private bool _habilitado = true;
 
-    public bool EstaSiendoUsado() => _jugador;
+    public bool EstaSiendoUsado() => Jugador;
 
-public void Usar(ControlJugador usuario)
+    public void EstablecerPosicion(Vector2 posicion) => _lastPosition = posicion;
+    
+    public void Usar(ControlJugador usuario)
     {
-        _jugador = usuario;
+        Jugador = usuario;
         AudioSource.PlayClipAtPoint(sfxPickup, transform.position);
     }
 
@@ -29,8 +31,9 @@ public void Usar(ControlJugador usuario)
 
     public void Soltar()
     {
-        _lastPosition = _jugador.transform.position;
-        _jugador = null;
+        //_lastPosition = Jugador.transform.position;
+        EstablecerPosicion(Jugador.transform.position);
+        Jugador = null;
         AudioSource.PlayClipAtPoint(sfxDrop, transform.position);
         transform.DOJump(_lastPosition, 1, 1, 0.5f);
     }
@@ -60,13 +63,14 @@ public void Usar(ControlJugador usuario)
     
     private void Start()
     {
-        _lastPosition = transform.position;
+        EstablecerPosicion(transform.position);
+        // _lastPosition = transform.position;
     }
 
     private void Update()
     {
         if (EstaSiendoUsado())
-            transform.position = Vector2.Lerp(transform.position, (Vector2)_jugador.transform.position + new Vector2(0.5f, 0.5f), Time.deltaTime*10);
+            transform.position = Vector2.Lerp(transform.position, (Vector2)Jugador.transform.position + new Vector2(0.5f, 0.5f), Time.deltaTime*10);
         else
             HoveringEffect();
     }

@@ -6,7 +6,7 @@ namespace Componentes
     [RequireComponent(typeof(Collider2D))]
     public class ComponenteTeleport : MonoBehaviour
     {
-        [Header("Configuración")]
+        [Header("Configuraciï¿½n")]
         //[SerializeField] private Transform teleportEntrada;
         //[SerializeField] private Transform teleportSalida;
         [SerializeField] private ComponenteTeleport teleporterAsociado;
@@ -18,21 +18,27 @@ namespace Componentes
         {
             if (canTeleport && other.CompareTag("Player"))
             {
-                StartCoroutine(TeleportPlayerWithDelay(other.transform));
+                Inventario inventarioJugador = other.GetComponent<ControlJugador>().Inventario;
+                if (!inventarioJugador.EstaLlevandoItem) return;
+
+                Item item = inventarioJugador.Item;
+                inventarioJugador.AccionSoltarItem();
+                StartCoroutine(TeleportPlayerWithDelay(item));
             }
         }
 
-        private IEnumerator TeleportPlayerWithDelay(Transform player)
+        private IEnumerator TeleportPlayerWithDelay(Item item)
         {
             yield return new WaitForSeconds(teleportDelay); // Delay antes de teletransportar
-            TeleportPlayer(player);
+            TeleportPlayer(item);
         }
 
-        private void TeleportPlayer(Transform player)
+        private void TeleportPlayer(Item item)
         {
             if (teleporterAsociado != null)
             {
-                player.position = teleporterAsociado.transform.position;
+                // item.position = teleporterAsociado.transform.position;
+                item.EstablecerPosicion(teleporterAsociado.transform.position);
                 teleporterAsociado.DisableTeleportationTemporarily();
             }
         }
@@ -40,7 +46,7 @@ namespace Componentes
         public void DisableTeleportationTemporarily()
         {
             canTeleport = false;
-            Invoke(nameof(EnableTeleportation), 1f); // Deshabilitar teletransportación por 1 segundo
+            Invoke(nameof(EnableTeleportation), 1f); // Deshabilitar teletransportaciï¿½n por 1 segundo
         }
 
         private void EnableTeleportation()

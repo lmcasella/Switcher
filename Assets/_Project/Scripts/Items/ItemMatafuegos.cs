@@ -13,12 +13,12 @@ namespace _Project.Scripts.Items
         [SerializeField] private int usos = 4;
 
         private float DistanciaHastaComponente =>
-            Vector2.Distance(_jugador.transform.position, TrampaMasCercana().transform.position);
+            Vector2.Distance(Jugador.transform.position, TrampaMasCercana().transform.position);
 
         private ComponenteBinario TrampaMasCercana()
         {
             return GameObject.FindGameObjectsWithTag("Fuego")
-                .OrderBy(t => Vector2.Distance(t.transform.position, _jugador.transform.position))
+                .OrderBy(t => Vector2.Distance(t.transform.position, Jugador.transform.position))
                 .FirstOrDefault()
                 .GetComponent<ComponenteBinario>();
         }
@@ -29,15 +29,15 @@ namespace _Project.Scripts.Items
             {
                 Destroy(TrampaMasCercana().gameObject);
                 usos--;
-                inventario.usuario.Decir(string.Format(mensajeAlUsar, usos), 2);
+                inventario.Usuario.Decir(string.Format(mensajeAlUsar, usos), 2);
                 if (usos > 0) return; 
                 
-                inventario.usuario.Decir("Ya no queda más...", 2);
+                inventario.Usuario.Decir("Ya no queda más...", 2);
                 inventario.AccionSoltarItem();
                 Deshabilitar();
                 return;
             }
-            inventario.usuario.Decir(mensajeAlFallar, 3);
+            inventario.Usuario.Decir(mensajeAlFallar, 3);
         }
 
         private void OnDrawGizmosSelected()

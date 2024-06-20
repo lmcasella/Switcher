@@ -12,22 +12,23 @@ public class Inventario
 
     public float tiempoRequeridoParaSoltar = 1;
     
-    public ControlJugador usuario;
-    private Item _item;
+    public ControlJugador Usuario { get; private set; }
+    public Item Item { get; private set; }
     private Slider _UISliderReleaseIndicator;
     
     public float ReleaseTime { get; private set; }
-    private bool IsHoldingUseKey => Input.GetKey(usuario.teclaUsar);
+    public bool EstaLlevandoItem => Item;
+    private bool IsHoldingUseKey => Input.GetKey(Usuario.teclaUsar);
 
     public Inventario(ControlJugador usuario)
     {
-        this.usuario = usuario;
-        _UISliderReleaseIndicator = this.usuario.GetComponentInChildren<Slider>();
+        this.Usuario = usuario;
+        _UISliderReleaseIndicator = this.Usuario.GetComponentInChildren<Slider>();
     }
     
     public void HandleInventory()
     {
-        _UISliderReleaseIndicator.gameObject.SetActive(_item && IsHoldingUseKey);
+        _UISliderReleaseIndicator.gameObject.SetActive(Item && IsHoldingUseKey);
         if (IsHoldingUseKey) // Count time while is pressing the key
         {
             _UISliderReleaseIndicator.value = ReleaseTime;
@@ -38,11 +39,11 @@ public class Inventario
 
         if (ReleaseTime > tiempoRequeridoParaSoltar)
         {
-            _item?.Utilizar(this);
+            Item?.Utilizar(this);
             ReleaseTime = 0;
         }
 
-        if(Input.GetKeyDown(usuario.teclaUsar))
+        if(Input.GetKeyDown(Usuario.teclaUsar))
             AccionTomarItem();
     }
 
@@ -50,33 +51,33 @@ public class Inventario
     {
         Item nuevoItem = ObtenerItem();
         // No hacer nada si el item es el mismo que ya tenemos o intenta reemplazarlo por la misma nada.
-        if (nuevoItem == _item || !nuevoItem) return;
+        if (nuevoItem == Item || !nuevoItem) return;
         
         SoltarItem();
-        _item = nuevoItem;
-        _item?.Usar(usuario);
-        OnPickup?.Invoke(usuario);
+        Item = nuevoItem;
+        Item?.Usar(Usuario);
+        OnPickup?.Invoke(Usuario);
     }
     
     public void AccionSoltarItem()
     {
         _UISliderReleaseIndicator.value = ReleaseTime;
         SoltarItem();
-        _item = null;
-        OnDrop?.Invoke(usuario);
+        Item = null;
+        OnDrop?.Invoke(Usuario);
     }
 
-    private void SoltarItem() => _item?.Soltar();
+    private void SoltarItem() => Item?.Soltar();
     
     private Item ObtenerItem()
     {
         Item item = null;
-        Collider2D[] castHit = Physics2D.OverlapCircleAll(usuario.transform.position, usuario.Collider.radius);
+        Collider2D[] castHit = Physics2D.OverlapCircleAll(Usuario.transform.position, Usuario.Collider.radius);
         foreach (Collider2D collider in castHit)
         {
             if (collider.TryGetComponent(out Item objetoUsable))
             {
-                if (objetoUsable == _item) continue;
+                if (objetoUsable == Item) continue;
                 item = objetoUsable;
             }
         }

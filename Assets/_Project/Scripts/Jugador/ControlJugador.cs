@@ -37,7 +37,7 @@ public class ControlJugador : MonoBehaviour, IDamageable
     public Animator Animator { get; private set;}
     public TextMeshPro TextoDialogo { get; private set;}
 
-    private Inventario _inventario;
+    public Inventario Inventario { get; private set; }
     private IUsable _ultimoObjetoUsable;
     private Coroutine _corrutinaDialogo;
     private float _vidas;
@@ -71,7 +71,7 @@ public class ControlJugador : MonoBehaviour, IDamageable
         Collider = GetComponent<CircleCollider2D>();
         Animator = GetComponent<Animator>();
         TextoDialogo = GetComponentInChildren<TextMeshPro>();
-        _inventario = new Inventario(this);
+        Inventario = new Inventario(this);
         _vidas = vidaMaxima;
     }
 
@@ -82,7 +82,7 @@ public class ControlJugador : MonoBehaviour, IDamageable
         
         ComportamientoDeNavegacion();
         ComportamientoDeUsar();
-        _inventario.HandleInventory();
+        Inventario.HandleInventory();
     }
 
     /// <summary>

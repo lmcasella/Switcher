@@ -177,6 +177,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   teleporterAsociado: {fileID: 0}
   teleportDelay: 1
+  sfxTeleport: {fileID: 8300000, guid: 0a58a12dc3965b5499381dd2ef8dba04, type: 3}
 --- !u!61 &375323111725273914
 BoxCollider2D:
   m_ObjectHideFlags: 0

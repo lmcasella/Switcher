@@ -6,11 +6,14 @@ namespace Componentes
     [RequireComponent(typeof(Collider2D))]
     public class ComponenteTeleport : MonoBehaviour
     {
-        [Header("Configuraci�n")]
+        [Header("Configuración")]
         //[SerializeField] private Transform teleportEntrada;
         //[SerializeField] private Transform teleportSalida;
         [SerializeField] private ComponenteTeleport teleporterAsociado;
         [SerializeField] private float teleportDelay = 1f;
+
+        [Header("Sonido")]
+        [SerializeField] private AudioClip sfxTeleport;
 
         private bool canTeleport = true;
 
@@ -24,6 +27,7 @@ namespace Componentes
                 Item item = inventarioJugador.Item;
                 inventarioJugador.AccionSoltarItem();
                 StartCoroutine(TeleportPlayerWithDelay(item));
+                AudioSource.PlayClipAtPoint(sfxTeleport, transform.position);
             }
         }
 

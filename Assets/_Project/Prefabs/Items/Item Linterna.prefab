@@ -244,7 +244,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 678ef550ac85d1146a3ed6d6521566ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sfxPickup: {fileID: 8300000, guid: 1680c84e51eceaf46a4981f2b32fef48, type: 3}
+  sfxPickup: {fileID: 8300000, guid: 6b0ffd0ca6fa598448d408f015a922b5, type: 3}
   sfxDrop: {fileID: 8300000, guid: 1959c766febdb574aad906e127c04324, type: 3}
   componenteAActivar: {fileID: 0}
   mensajeAlAgarrar: Ahora puedo ver...
+  mensajeComponenteUsado: "Por f\xEDn, ya hay luz"

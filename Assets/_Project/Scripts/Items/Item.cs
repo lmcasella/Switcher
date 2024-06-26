@@ -18,7 +18,7 @@ public class Item : MonoBehaviour
 
     public void EstablecerPosicion(Vector2 posicion) => _lastPosition = posicion;
     
-    public void Usar(ControlJugador usuario)
+    public virtual void Usar(ControlJugador usuario)
     {
         Jugador = usuario;
         AudioSource.PlayClipAtPoint(sfxPickup, transform.position);

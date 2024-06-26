@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: TrampaVapor
+  m_Controller: {fileID: 9100000, guid: 869db003412ec914a9558f3ddf9b146e, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 83a394a5426967f4fb7c951f5ff17155, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 83a394a5426967f4fb7c951f5ff17155, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: aebe362929280b84a93835e62fe349f1, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: aebe362929280b84a93835e62fe349f1, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: ab3bdbb16a9714e4a8c1e00dd0cacf69, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: ab3bdbb16a9714e4a8c1e00dd0cacf69, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: fd2351d1ae53f9e47abba6347907a2ad, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 83a394a5426967f4fb7c951f5ff17155, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 54e1c4834270d8c4e9f6fa1eef2e5923, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: aebe362929280b84a93835e62fe349f1, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 300b51c10e45d194086ebdbdc7d12163, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: ab3bdbb16a9714e4a8c1e00dd0cacf69, type: 2}
